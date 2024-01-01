@@ -13,6 +13,7 @@ class Stock extends Model
 
     public function product()
     {
+        /*Eloquent relationship defining a stock entry is associated with a single product. */
         return $this->belongsTo(Product::class);
     }
 }

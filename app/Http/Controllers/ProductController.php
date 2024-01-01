@@ -10,14 +10,14 @@ class ProductController extends Controller
 {
     public function create()
     {
-        // Afficher la page d'ajout de produits alimentaires
+        // return the add product page with products info
         $products = Product::all();
         return view('pages.addProduct',['products'=>$products]);
         }
     
     public function store(Request $request)
     {
-        // Valider et enregistrer les produits dans la base de données
+        // validate and store the product in the stock 
 
         $product = $request->validate([
             'product' => 'required|string|max:255', 

@@ -10,7 +10,7 @@ class RecipeController extends Controller
 {
     public function getPossibleRecipes()
     {
-        // Retourner les recettes possibles en fonction des produits disponibles (webservice GET)
+        // Retourner les recettes possibles en fonction des produits disponibles
         $availableProducts = Stock::pluck('product_id')->toArray();
         $possibleRecipes = Recipe::with('products')
         ->whereHas('products', function ($query) use ($availableProducts) {
@@ -29,7 +29,8 @@ class RecipeController extends Controller
     }
     public function validateRecipe(Request $request,$recipeId)
     {
-        // Valider une recette, mettre à jour les stocks (webservice POST)
+        //Validate a recipe, update Stocks
+
         $recipe = Recipe::findOrFail($recipeId);
 
         $requiredProducts = $recipe->products()->pluck('id')->toArray();

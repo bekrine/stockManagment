@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class StockController extends Controller
 {
     public function getStock() {
+        //return the stock page with the products in the stock
       $products = Stock::with('product')->get();
       $stockDetails = $products->map(function ($item) {
         return [
@@ -24,6 +25,7 @@ class StockController extends Controller
 
     public function edit($stockId){
         
+        //return the edit page with the product to edit
         $stockItem = Stock::with('product')->where('id', $stockId)->get();
         
         $stockDetails = $stockItem->map(function ($item) {
@@ -41,6 +43,9 @@ class StockController extends Controller
     }
 
     public function update(Request $request,$stockId){
+
+        //update the product 
+
         $product = $request->validate([
             'product' => 'required|string|max:255', 
             'quantity' => 'required|numeric',
@@ -60,6 +65,7 @@ class StockController extends Controller
     }
 
     public function destroy($stockId){
+        //delete the product
         $stockItem = Stock::where('id', $stockId)->firstOrFail();
         $stockItem->delete();
         return redirect()->back()->with('success', 'Product deleted from stock successfully');
@@ -69,6 +75,7 @@ class StockController extends Controller
 
     public function index(Request $request)
     {
+        //return the products in the stock sort by asc or desc
         $sort = $request->input('sort', 'expiration_date');
         $order = $request->input('order', 'asc');
 
